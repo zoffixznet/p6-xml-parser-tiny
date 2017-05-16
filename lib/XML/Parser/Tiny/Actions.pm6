@@ -12,7 +12,7 @@ method TOP ($/) {
 }
 
 method head ($/) {
-  make [$<head_item>>>.ast]
+  make [$<head_item>>>.ast.map(|*).flat]
 }
 
 method head_item ($/) {
@@ -44,7 +44,7 @@ method long ($/) {
         if $_ ~~ Str && $result && $result[$result.end] ~~ Str {
           $result[$result.end] ~= $_;
         } else {
-          $result.push($_);
+          $result.append: $_;
         }
       }
       $result;
@@ -118,4 +118,3 @@ method amp ($/) { make '&' }
 method apos ($/) { make "'" }
 method quot ($/) { make '"' }
 method num ($/) { make chr( $/.substr(2, $/.chars - 3) ) }
-
